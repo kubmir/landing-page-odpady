@@ -1,7 +1,73 @@
-import React from 'react'
+'use client'
+
+import React, { useState, useRef } from 'react'
 import Button from './Button'
 
 export default function Contact() {
+  const [formStartTime] = useState(Date.now())
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+    setErrorMessage('')
+
+    const form = e.currentTarget
+    const formData = new FormData(form)
+
+    // Bot protection checks
+    const honeypot = formData.get('website') as string
+    const formTime = Date.now() - formStartTime
+    const minFormTime = 3000 // Minimum 3 seconds to fill the form
+
+    // Check honeypot field (should be empty)
+    if (honeypot && honeypot.trim() !== '') {
+      setErrorMessage('Bot detected. Please try again.')
+      setIsSubmitting(false)
+      return
+    }
+
+    // Check if form was filled too quickly (likely a bot)
+    if (formTime < minFormTime) {
+      setErrorMessage('Formulár bol vyplnený príliš rýchlo. Prosím, skúste znova.')
+      setIsSubmitting(false)
+      return
+    }
+
+    // Add timestamp to form data
+    formData.append('form_time', formTime.toString())
+    formData.append('timestamp', Date.now().toString())
+
+    try {
+      const response = await fetch('/contact.php', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        setSubmitStatus('success')
+        form.reset()
+        // Reset form start time for potential resubmission
+        setTimeout(() => {
+          setSubmitStatus('idle')
+        }, 5000)
+      } else {
+        setSubmitStatus('error')
+        setErrorMessage(data.error || 'Nastala chyba pri odosielaní správy. Prosím, skúste znova.')
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      setErrorMessage('Nastala chyba pri odosielaní správy. Prosím, skúste znova.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <section id="kontakt" className="section bg-blue-600 text-white">
@@ -21,7 +87,37 @@ export default function Contact() {
             <p className="text-base sm:text-lg">Volajte nonstop: 0948 850 491</p>
           </div>
 
-          <form action="/contact.php" method="POST" className="bg-white text-gray-800 p-5 sm:p-6 md:p-8 rounded-lg shadow-xl">
+          {submitStatus === 'success' && (
+            <div className="bg-green-500 text-white p-4 rounded-lg mb-6 text-center">
+              <p className="font-semibold">✓ Správa bola úspešne odoslaná!</p>
+              <p className="text-sm mt-1">Ďakujeme za váš záujem. Čoskoro vás budeme kontaktovať.</p>
+            </div>
+          )}
+
+          {submitStatus === 'error' && (
+            <div className="bg-red-500 text-white p-4 rounded-lg mb-6 text-center">
+              <p className="font-semibold">✗ {errorMessage}</p>
+            </div>
+          )}
+
+          <form 
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="bg-white text-gray-800 p-5 sm:p-6 md:p-8 rounded-lg shadow-xl"
+          >
+            {/* Honeypot field - hidden from users but visible to bots */}
+            <div style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}>
+              <label htmlFor="website">Website (leave blank)</label>
+              <input
+                type="text"
+                id="website"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
+            </div>
+
             <div className="mb-5 sm:mb-6">
               <label htmlFor="name" className="block text-sm font-semibold mb-2">
                 Meno a priezvisko *
@@ -31,7 +127,8 @@ export default function Contact() {
                 id="name"
                 name="name"
                 required
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent min-h-[48px]"
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
@@ -44,7 +141,8 @@ export default function Contact() {
                 id="email"
                 name="email"
                 required
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent min-h-[48px]"
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
@@ -56,7 +154,8 @@ export default function Contact() {
                 type="tel"
                 id="phone"
                 name="phone"
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent min-h-[48px]"
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
@@ -69,12 +168,13 @@ export default function Contact() {
                 name="message"
                 required
                 rows={5}
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent resize-none"
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent resize-none disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
-            <Button type="submit" variant="primary">
-              Odoslať správu
+            <Button type="submit" variant="primary" disabled={isSubmitting}>
+              {isSubmitting ? 'Odosielam...' : 'Odoslať správu'}
             </Button>
           </form>
         </div>
