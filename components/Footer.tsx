@@ -2,15 +2,14 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-6 sm:py-8">
+    <footer className="bg-brand-dark-blue text-white py-4 sm:py-6">
       <div className="container">
         <div className="text-center px-4">
-          <p className="text-base sm:text-lg font-bold mb-2">ODPADY24.sk</p>
-          <p className="text-sm sm:text-base text-gray-400 mb-3 sm:mb-4">Rýchle riešenie problémov s kanalizáciou</p>
-          <p className="text-sm sm:text-base text-gray-400">
-            <a href="tel:0948850491" className="hover:text-white transition-colors min-h-[48px] inline-flex items-center justify-center">
-              0948 850 491
-            </a>
+          <p className="text-xs text-brand-light-blue/70 mt-4 pt-4 border-t border-brand-light-blue/20">
+            © {new Date().getFullYear()} ODPADY24.sk. Všetky práva vyhradené.
+          </p>
+          <p className="text-xs text-brand-light-blue/70 mt-2">
+            Powered by <span className="text-brand-light-blue">Biz x Dev s. r. o.</span>
           </p>
         </div>
       </div>

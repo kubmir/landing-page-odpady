@@ -1,33 +1,33 @@
-import React from 'react'
-import ServiceCard from './ServiceCard'
+import React from "react";
+import ServiceCard from "./ServiceCard";
 
 export default function Services() {
   const services = [
     {
-      icon: '🌧️',
-      title: 'Čistenie rín a odkvapových rúr',
-      price: 'od 80 € bez DPH',
-      description: 'Profesionálne čistenie odkvapov a drenáže'
+      icon: "💧",
+      title: "Čistenie kanalizácií vysokotlakovým strojom",
+      price: "od 120 € bez DPH",
+      description: "Účinné čistenie potrubia vysokotlakovou technológiou",
     },
     {
-      icon: '🔑',
-      title: 'Krtkovanie',
-      price: 'od 90 € bez DPH',
-      description: 'Rýchle odstránenie upchatia'
+      icon: "🔑",
+      title: "Krtkovanie",
+      price: "od 90 € bez DPH",
+      description: "Rýchle odstránenie upchatia",
     },
     {
-      icon: '💧',
-      title: 'Čistenie kanalizácií vysokotlakovým strojom',
-      price: 'od 120 € bez DPH',
-      description: 'Účinné čistenie potrubia vysokotlakovou technológiou'
+      icon: "📹",
+      title: "Monitoring potrubí",
+      price: "od 120 € bez DPH",
+      description: "Presná diagnostika kamerou",
     },
     {
-      icon: '📹',
-      title: 'Monitoring potrubí',
-      price: 'od 120 € bez DPH',
-      description: 'Presná diagnostika kamerou'
-    }
-  ]
+      icon: "🌧️",
+      title: "Čistenie rín a odkvapových rúr",
+      price: "od 80 € bez DPH",
+      description: "Profesionálne čistenie odkvapov a drenáže",
+    },
+  ];
 
   return (
     <section id="sluzby" className="section bg-white">
@@ -46,6 +46,5 @@ export default function Services() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-

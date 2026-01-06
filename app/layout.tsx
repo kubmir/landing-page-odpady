@@ -3,10 +3,10 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'ODPADY24.sk - Rýchle riešenie problémov s kanalizáciou',
-  description: 'Profesionálne čistenie kanalizácií, krtkovanie, monitoring potrubí a čistenie rín. Pôsobíme v Banskej Bystrici, Zvolene, Krupine a Šahoch. Rýchly zásah, moderné technológie, transparentné ceny.',
-  keywords: 'čistenie kanalizácií, krtkovanie, monitoring potrubí, čistenie rín, odkvapové rúry, Banská Bystrica, Zvolen, Krupina, Šahy, vysokotlakové čistenie, TV monitoring, upchatie kanalizácie',
-  authors: [{ name: 'ODPADY24.sk' }],
-  creator: 'ODPADY24.sk',
+  description: 'Profesionálne čistenie kanalizácií, krtkovanie, monitoring potrubí a čistenie rín. Pôsobíme na strednom a západnom Slovensku: Banská Bystrica, Bratislava, Nitra, Trnava, Zvolen, Krupina, Šahy, Detva, Levice, Žiar nad Hronom, Senec, Pezinok. Rýchly zásah, moderné technológie, transparentné ceny.',
+  keywords: 'čistenie kanalizácií, krtkovanie, monitoring potrubí, čistenie rín, odkvapové rúry, vysokotlakové čistenie, TV monitoring, upchatie kanalizácie, čistenie odpadov, čistenie potrubia, čistenie odkvapov, havarijné čistenie kanalizácie',
+  authors: [{ name: 'Biz x Dev s. r. o.' }],
+  creator: 'Biz x Dev s. r. o.',
   publisher: 'ODPADY24.sk',
   formatDetection: {
     email: false,
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'ODPADY24.sk - Rýchle riešenie problémov s kanalizáciou',
-    description: 'Profesionálne čistenie kanalizácií, krtkovanie, monitoring potrubí a čistenie rín. Rýchly zásah, moderné technológie, transparentné ceny.',
+    description: 'Profesionálne čistenie kanalizácií, krtkovanie, monitoring potrubí a čistenie rín. Pôsobíme na strednom a západnom Slovensku. Rýchly zásah, moderné technológie, transparentné ceny.',
     url: 'https://odpady24.sk',
     siteName: 'ODPADY24.sk',
     locale: 'sk_SK',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'ODPADY24.sk - Rýchle riešenie problémov s kanalizáciou',
-    description: 'Profesionálne čistenie kanalizácií, krtkovanie, monitoring potrubí a čistenie rín.',
+    description: 'Profesionálne čistenie kanalizácií, krtkovanie, monitoring potrubí a čistenie rín. Pôsobíme na strednom a západnom Slovensku.',
     images: ['/logo.png'],
   },
   robots: {

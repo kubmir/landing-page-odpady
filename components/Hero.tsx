@@ -8,7 +8,6 @@ export default function Hero() {
       style={{
         backgroundImage: 'url(/hero_background.png)'
       }}
-      aria-label="Hlavná sekcia - ODPADY24.sk"
     >
       <div className="absolute inset-0 bg-black/40"></div>
       <div className="container relative z-10">

@@ -70,7 +70,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="kontakt" className="section bg-blue-600 text-white">
+    <section id="kontakt" className="section bg-brand-dark-blue text-white">
       <div className="container">
         <h2 className="section-title text-white">Kontaktujte nás</h2>
         <div className="max-w-2xl mx-auto px-4">
@@ -79,12 +79,12 @@ export default function Contact() {
               Máte problém s odtokom? Zavolajte nám alebo vyplňte online formulár – sme pripravení pomôcť!
             </p>
             <a 
-              href="tel:0948850491" 
+              href="tel:0903596876" 
               className="text-xl sm:text-2xl font-bold hover:underline inline-block mb-3 sm:mb-4 min-h-[48px] flex items-center justify-center"
             >
-              📞 0948 850 491
+              📞 0903 596 876
             </a>
-            <p className="text-base sm:text-lg">Volajte nonstop: 0948 850 491</p>
+            <p className="text-base sm:text-lg">Volajte nonstop</p>
           </div>
 
           {submitStatus === 'success' && (
@@ -95,7 +95,7 @@ export default function Contact() {
           )}
 
           {submitStatus === 'error' && (
-            <div className="bg-red-500 text-white p-4 rounded-lg mb-6 text-center">
+            <div className="bg-brand-orange text-white p-4 rounded-lg mb-6 text-center">
               <p className="font-semibold">✗ {errorMessage}</p>
             </div>
           )}
@@ -128,7 +128,7 @@ export default function Contact() {
                 name="name"
                 required
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
@@ -142,7 +142,7 @@ export default function Contact() {
                 name="email"
                 required
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
@@ -155,7 +155,7 @@ export default function Contact() {
                 id="phone"
                 name="phone"
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 

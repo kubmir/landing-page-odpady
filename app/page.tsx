@@ -11,14 +11,14 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'ODPADY24.sk',
-    description: 'Profesionálne čistenie kanalizácií, krtkovanie, monitoring potrubí a čistenie rín. Rýchly zásah, moderné technológie, transparentné ceny.',
+    description: 'Profesionálne čistenie kanalizácií, krtkovanie, monitoring potrubí a čistenie rín. Pôsobíme v strednom a západnom Slovensku. Rýchly zásah, moderné technológie, transparentné ceny.',
     url: 'https://odpady24.sk',
-    telephone: '+421948850491',
+    telephone: '+421903596876',
     priceRange: '€€',
     address: {
       '@type': 'PostalAddress',
-      addressRegion: 'Stredné Slovensko',
-      addressLocality: 'Banská Bystrica, Zvolen, Krupina, Šahy',
+      addressRegion: 'Slovensko',
+      addressLocality: 'Banská Bystrica, Bratislava, Nitra, Trnava, Zvolen, Krupina, Šahy, Detva, Levice, Žiar nad Hronom, Senec, Pezinok',
       addressCountry: 'SK'
     },
     areaServed: [
@@ -37,6 +37,38 @@ export default function Home() {
       {
         '@type': 'City',
         name: 'Šahy'
+      },
+      {
+        '@type': 'City',
+        name: 'Detva'
+      },
+      {
+        '@type': 'City',
+        name: 'Levice'
+      },
+      {
+        '@type': 'City',
+        name: 'Žiar nad Hronom'
+      },
+      {
+        '@type': 'City',
+        name: 'Bratislava'
+      },
+      {
+        '@type': 'City',
+        name: 'Nitra'
+      },
+      {
+        '@type': 'City',
+        name: 'Trnava'
+      },
+      {
+        '@type': 'City',
+        name: 'Senec'
+      },
+      {
+        '@type': 'City',
+        name: 'Pezinok'
       }
     ],
     hasOfferCatalog: {
