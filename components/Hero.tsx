@@ -6,7 +6,7 @@ export default function Hero() {
     <section 
       className="relative py-12 sm:py-16 md:py-24 lg:py-32 bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: 'url(/hero_background.png)'
+        backgroundImage: 'url(/hero_background.webp)'
       }}
     >
       <div className="absolute inset-0 bg-black/40"></div>
