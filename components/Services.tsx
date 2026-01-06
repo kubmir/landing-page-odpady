@@ -1,5 +1,6 @@
 import React from "react";
 import ServiceCard from "./ServiceCard";
+import ScrollReveal from "./ScrollReveal";
 
 export default function Services() {
   const services = [
@@ -30,9 +31,11 @@ export default function Services() {
   ];
 
   return (
-    <section id="sluzby" className="section bg-white">
+    <section id="sluzby" className="section bg-gradient-to-b from-white to-gray-50">
       <div className="container">
-        <h2 className="section-title">Naše služby</h2>
+        <ScrollReveal>
+          <h2 className="section-title">Naše služby</h2>
+        </ScrollReveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {services.map((service, index) => (
             <ServiceCard
@@ -41,6 +44,7 @@ export default function Services() {
               title={service.title}
               price={service.price}
               description={service.description}
+              delay={index * 100}
             />
           ))}
         </div>
