@@ -10,7 +10,7 @@ export default function Services() {
       description: "Účinné čistenie potrubia vysokotlakovou technológiou",
     },
     {
-      icon: "🔑",
+      icon: "🪠",
       title: "Krtkovanie",
       price: "od 90 € bez DPH",
       description: "Rýchle odstránenie upchatia",
