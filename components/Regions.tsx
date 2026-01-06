@@ -4,14 +4,14 @@ import ScrollReveal from './ScrollReveal'
 export default function Regions() {
   const regions = [
     {
-      title: 'Pobočka západné Slovensko',
-      areas: 'Bratislava · Nitra · Trnava · Senec · Pezinok',
-      phone: '0948 850 491'
-    },
-    {
       title: 'Pobočka stredné Slovensko',
       areas: 'Banská Bystrica · Zvolen · Krupina · Šahy · Detva · Levice · Žiar nad Hronom',
       phone: '0903 596 876'
+    },
+    {
+      title: 'Pobočka západné Slovensko',
+      areas: 'Bratislava · Nitra · Trnava · Senec · Pezinok',
+      phone: '0948 850 491'
     },
   ]
 
