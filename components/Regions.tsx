@@ -4,13 +4,15 @@ import ScrollReveal from './ScrollReveal'
 export default function Regions() {
   const regions = [
     {
-      title: 'Pobočka stredné Slovensko',
-      areas: 'Banská Bystrica · Zvolen · Krupina · Šahy · Detva · Levice · Žiar nad Hronom'
+      title: 'Pobočka západné Slovensko',
+      areas: 'Bratislava · Nitra · Trnava · Senec · Pezinok',
+      phone: '0948 850 491'
     },
     {
-      title: 'Pobočka západné Slovensko',
-      areas: 'Bratislava · Nitra · Trnava · Senec · Pezinok'
-    }
+      title: 'Pobočka stredné Slovensko',
+      areas: 'Banská Bystrica · Zvolen · Krupina · Šahy · Detva · Levice · Žiar nad Hronom',
+      phone: '0903 596 876'
+    },
   ]
 
   return (
@@ -28,9 +30,16 @@ export default function Regions() {
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 md:mb-5 text-gray-800 group-hover:text-brand-dark-blue transition-colors duration-300">
                   {region.title}
                 </h3>
-                <p className="text-base sm:text-lg md:text-xl text-gray-700 font-medium leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
+                <p className="text-base sm:text-lg md:text-xl text-gray-700 font-medium leading-relaxed group-hover:text-gray-800 transition-colors duration-300 mb-4 sm:mb-5">
                   {region.areas}
                 </p>
+                <a 
+                  href={`tel:${region.phone.replace(/\s/g, '')}`}
+                  className="inline-flex items-center gap-2 text-lg sm:text-xl md:text-2xl font-bold text-brand-light-blue hover:text-brand-orange transition-all duration-300 group-hover:scale-110"
+                >
+                  <span className="text-2xl">📞</span>
+                  <span>{region.phone}</span>
+                </a>
               </div>
             </ScrollReveal>
           ))}

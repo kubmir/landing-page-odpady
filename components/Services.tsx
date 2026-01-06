@@ -7,25 +7,25 @@ export default function Services() {
     {
       icon: "💧",
       title: "Čistenie kanalizácií vysokotlakovým strojom",
-      price: "od 120 € bez DPH",
+      price: "od 120 €",
       description: "Účinné čistenie potrubia vysokotlakovou technológiou",
     },
     {
       icon: "🪠",
       title: "Krtkovanie",
-      price: "od 90 € bez DPH",
+      price: "od 90 €",
       description: "Rýchle odstránenie upchatia",
     },
     {
       icon: "📹",
       title: "Monitoring potrubí",
-      price: "od 120 € bez DPH",
+      price: "od 120 €",
       description: "Presná diagnostika kamerou",
     },
     {
       icon: "🌧️",
       title: "Čistenie rín a odkvapových rúr",
-      price: "od 80 € bez DPH",
+      price: "od 80 €",
       description: "Profesionálne čistenie odkvapov a drenáže",
     },
   ];

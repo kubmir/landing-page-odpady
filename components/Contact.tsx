@@ -92,6 +92,12 @@ export default function Contact() {
               >
                 📞 0903 596 876
               </a>
+              <a 
+                href="tel:0948850491" 
+                className="text-xl sm:text-2xl font-bold hover:text-brand-light-blue inline-block mb-3 sm:mb-4 min-h-[48px] flex items-center justify-center transition-all duration-300 hover:scale-110"
+              >
+                📞 0948 850 491
+              </a>
               <p className="text-base sm:text-lg">Volajte nonstop</p>
             </div>
           </ScrollReveal>
