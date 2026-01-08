@@ -196,6 +196,13 @@ export default function Contact() {
             </Button>
             </form>
           </ScrollReveal>
+
+          <ScrollReveal delay={400}>
+            <div className="mt-8 pt-6 border-t border-white/10 text-center">
+              <p className="text-xs text-white/60 mb-2">ODPADY24 s. r. o. | IČO: 57 381 798 | 215 Terany, 962 68</p>
+              <p className="text-xs text-white/50">Okresný súd Banská Bystrica, Vložka č. 54467/S</p>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
