@@ -72,7 +72,8 @@ export default function PriceList() {
             </p>
             <a
               href="/CENNIK.pdf"
-              download="CENNIK.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-brand-dark-blue text-white font-semibold rounded-lg hover:bg-[#0a1620] transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-1 group"
             >
               <svg
