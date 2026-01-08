@@ -95,52 +95,79 @@ export default function PriceList() {
         </ScrollReveal>
         
         <ScrollReveal delay={100}>
-          <div className="overflow-x-auto">
-            <div className="inline-block min-w-full align-middle">
-              <div className="overflow-hidden shadow-lg rounded-xl border border-gray-200">
-                <table className="min-w-full divide-y divide-gray-200 bg-white">
-                  <thead className="bg-gradient-to-r from-brand-dark-blue to-[#152a3d]">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-bold text-white uppercase tracking-wider"
-                      >
-                        Typ služby / zásahu
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-bold text-white uppercase tracking-wider"
-                      >
-                        Cena bez DPH
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-bold text-white uppercase tracking-wider"
-                      >
-                        Cena s DPH (23%)
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {prices.map((item, index) => (
-                      <tr
-                        key={index}
-                        className="hover:bg-gray-50 transition-colors duration-200"
-                      >
-                        <td className="px-4 sm:px-6 py-4 text-sm sm:text-base text-gray-900 font-medium">
-                          {item.service}
-                        </td>
-                        <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-center text-sm sm:text-base text-brand-dark-blue font-semibold">
-                          {item.priceWithoutVat}
-                        </td>
-                        <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-center text-sm sm:text-base text-brand-orange font-semibold">
-                          {item.priceWithVat}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+          {/* Mobile Card Layout */}
+          <div className="block md:hidden space-y-4">
+            {prices.map((item, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-md border border-gray-200 p-4 hover:shadow-lg transition-shadow duration-200"
+              >
+                <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                  {item.service}
+                </h3>
+                <div className="flex justify-between items-center pt-3 border-t border-gray-100">
+                  <div className="flex-1">
+                    <p className="text-xs text-gray-500 mb-1">Bez DPH</p>
+                    <p className="text-base font-semibold text-brand-dark-blue">
+                      {item.priceWithoutVat}
+                    </p>
+                  </div>
+                  <div className="flex-1 text-right">
+                    <p className="text-xs text-gray-500 mb-1">S DPH (23%)</p>
+                    <p className="text-base font-semibold text-brand-orange">
+                      {item.priceWithVat}
+                    </p>
+                  </div>
+                </div>
               </div>
+            ))}
+          </div>
+
+          {/* Desktop Table Layout */}
+          <div className="hidden md:block">
+            <div className="overflow-hidden shadow-lg rounded-xl border border-gray-200">
+              <table className="w-full divide-y divide-gray-200 bg-white">
+                <thead className="bg-gradient-to-r from-brand-dark-blue to-[#152a3d]">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider"
+                    >
+                      Typ služby / zásahu
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-4 text-center text-sm font-bold text-white uppercase tracking-wider"
+                    >
+                      Cena bez DPH
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-4 text-center text-sm font-bold text-white uppercase tracking-wider"
+                    >
+                      Cena s DPH (23%)
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {prices.map((item, index) => (
+                    <tr
+                      key={index}
+                      className="hover:bg-gray-50 transition-colors duration-200"
+                    >
+                      <td className="px-6 py-4 text-base text-gray-900 font-medium">
+                        {item.service}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-center text-base text-brand-dark-blue font-semibold">
+                        {item.priceWithoutVat}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-center text-base text-brand-orange font-semibold">
+                        {item.priceWithVat}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
           
