@@ -7,7 +7,6 @@ export default function Hero() {
       className="relative py-12 sm:py-16 md:py-24 lg:py-32 bg-cover bg-center bg-no-repeat min-h-[500px] sm:min-h-[600px] md:min-h-[700px] flex items-center"
       style={{
         backgroundImage: 'url(/hero_background.webp)',
-        backgroundAttachment: 'fixed',
       }}
     >
       <div className="absolute inset-0 gradient-overlay"></div>
