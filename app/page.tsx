@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Services from '@/components/Services'
 import Benefits from '@/components/Benefits'
+import PriceList from '@/components/PriceList'
 import Regions from '@/components/Regions'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
@@ -160,6 +161,7 @@ export default function Home() {
         <Hero />
         <Services />
         <Benefits />
+        <PriceList />
         <Regions />
         <Contact />
         <Footer />
