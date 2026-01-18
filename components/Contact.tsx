@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react'
 import Button from './Button'
 import ScrollReveal from './ScrollReveal'
+import Link from 'next/link';
 
 export default function Contact() {
   const [formStartTime] = useState(Date.now())
@@ -195,6 +196,14 @@ export default function Contact() {
               {isSubmitting ? 'Odosielam...' : 'Odoslať správu'}
             </Button>
             </form>
+
+            <p className="mt-4 text-xs text-gray-500">
+              Odoslaním formulára beriete na vedomie spracovanie osobných údajov nevyhnutných 
+              na vybavenie vášho dopytu podľa našich{' '}
+              <Link href="/ochrana-osobnych-udajov" className="underline hover:text-brand-orange">
+                Zásad ochrany osobných údajov
+              </Link>.
+            </p>
           </ScrollReveal>
 
           <ScrollReveal delay={400}>

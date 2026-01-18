@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import CookieConsent from '@/components/CookieConsent'
+import GoogleAnalytics from '@/components/GoogleAnalytics'
+
+// Replace with your actual Google Analytics Measurement ID
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'
 
 export const metadata: Metadata = {
   title: 'ODPADY24.sk - Rýchle riešenie problémov s kanalizáciou',
@@ -89,7 +94,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="sk">
-      <body>{children}</body>
+      <body>
+        <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
+        {children}
+        <CookieConsent />
+      </body>
     </html>
   )
 }
