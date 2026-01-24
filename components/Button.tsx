@@ -19,7 +19,7 @@ export default function Button({
 }: ButtonProps) {
   const baseStyles = 'inline-block px-6 py-3 md:px-8 md:py-3 rounded-lg font-semibold text-base md:text-lg transition-all duration-300 cursor-pointer text-center min-h-[48px] flex items-center justify-center relative overflow-hidden group'
   const variants = {
-    primary: 'bg-brand-orange text-white hover:bg-[#D04A1A] active:bg-[#B83E16] shadow-lg hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0',
+    primary: 'bg-brand-orange text-white hover:bg-[#E67300] active:bg-[#CC6600] shadow-lg hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0',
     secondary: 'bg-white text-brand-light-blue border-2 border-brand-light-blue hover:bg-brand-light-blue/10 active:bg-brand-light-blue/20 hover:border-brand-light-blue shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0'
   }
   const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''

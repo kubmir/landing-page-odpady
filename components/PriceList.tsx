@@ -172,7 +172,7 @@ export default function PriceList() {
             </div>
           </div>
           
-          <div className="mt-8 sm:mt-10 p-4 sm:p-6 bg-blue-50 rounded-xl border border-blue-100">
+          <div className="mt-8 sm:mt-10 p-4 sm:p-6 bg-brand-light-blue/5 rounded-xl border border-brand-light-blue/20">
             <h3 className="text-lg sm:text-xl font-bold text-brand-dark-blue mb-3 sm:mb-4">
               Príplatky
             </h3>
