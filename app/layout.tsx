@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/logo.png',
+        url: '/logo.webp',
         width: 1200,
         height: 630,
         alt: 'ODPADY24.sk - Čistíme potrubia',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ODPADY24.sk - Rýchle riešenie problémov s kanalizáciou',
     description: 'Profesionálne čistenie kanalizácií, krtkovanie, monitoring potrubí a čistenie rín. Pôsobíme na strednom a západnom Slovensku.',
-    images: ['/logo.png'],
+    images: ['/logo.webp'],
   },
   robots: {
     index: true,
@@ -95,6 +95,22 @@ export default function RootLayout({
   return (
     <html lang="sk">
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                if (!document.querySelector('link[href="/hero_background.webp"]')) {
+                  var link = document.createElement('link');
+                  link.rel = 'preload';
+                  link.href = '/hero_background.webp';
+                  link.as = 'image';
+                  link.setAttribute('fetchpriority', 'high');
+                  document.head.insertBefore(link, document.head.firstChild);
+                }
+              })();
+            `,
+          }}
+        />
         <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
         {children}
         <CookieConsent />

@@ -147,7 +147,7 @@ export default function Contact() {
                 name="name"
                 required
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:border-brand-light-blue/50 focus:shadow-lg"
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-brand-orange min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:border-brand-light-blue/50 focus:hover:border-brand-orange focus:shadow-lg focus:outline-none"
               />
             </div>
 
@@ -161,7 +161,7 @@ export default function Contact() {
                 name="email"
                 required
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:border-brand-light-blue/50 focus:shadow-lg"
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-brand-orange min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:border-brand-light-blue/50 focus:hover:border-brand-orange focus:shadow-lg focus:outline-none"
               />
             </div>
 
@@ -174,7 +174,7 @@ export default function Contact() {
                 id="phone"
                 name="phone"
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:border-brand-light-blue/50 focus:shadow-lg"
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-brand-orange min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:border-brand-light-blue/50 focus:hover:border-brand-orange focus:shadow-lg focus:outline-none"
               />
             </div>
 
@@ -188,7 +188,7 @@ export default function Contact() {
                 required
                 rows={5}
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent resize-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:border-brand-light-blue/50 focus:shadow-lg"
+                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-brand-orange resize-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:border-brand-light-blue/50 focus:hover:border-brand-orange focus:shadow-lg focus:outline-none"
               />
             </div>
 

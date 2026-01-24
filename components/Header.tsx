@@ -23,7 +23,7 @@ export default function Header() {
           <div className="flex items-center">
             <a href="/" className="transition-transform duration-300 hover:scale-105">
               <img 
-                src="/logo.png" 
+                src="/logo.webp" 
                 alt="ODPADY24.sk - Čistíme potrubia" 
                 className="h-12 sm:h-14 md:h-16 w-auto transition-all duration-300"
                 width={200}

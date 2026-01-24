@@ -1,5 +1,31 @@
 RewriteEngine On
 
+# Cache Control Headers for better performance
+# Images - cache for 1 year
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico|avif)$">
+  Header set Cache-Control "max-age=31536000, public, immutable"
+</FilesMatch>
+
+# CSS and JavaScript - cache for 1 year
+<FilesMatch "\.(css|js)$">
+  Header set Cache-Control "max-age=31536000, public, immutable"
+</FilesMatch>
+
+# Fonts - cache for 1 year
+<FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+  Header set Cache-Control "max-age=31536000, public, immutable"
+</FilesMatch>
+
+# HTML files - cache for 1 hour (shorter for content updates)
+<FilesMatch "\.(html|htm)$">
+  Header set Cache-Control "max-age=3600, public"
+</FilesMatch>
+
+# PDF and other documents - cache for 1 month
+<FilesMatch "\.(pdf)$">
+  Header set Cache-Control "max-age=2592000, public"
+</FilesMatch>
+
 # Exclude PHP files and other existing files from 404 redirect
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
