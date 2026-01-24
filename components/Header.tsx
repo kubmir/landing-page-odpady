@@ -33,21 +33,21 @@ export default function Header() {
           </div>
           <div className="hidden md:flex gap-4 lg:gap-6 items-center">
             <a 
-              href="#sluzby" 
+              href="/#sluzby" 
               className="text-sm lg:text-base text-white hover:text-brand-light-blue transition-all duration-300 relative group"
             >
               Naše služby
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-light-blue group-hover:w-full transition-all duration-300"></span>
             </a>
             <a 
-              href="#vyhody" 
+              href="/#vyhody" 
               className="text-sm lg:text-base text-white hover:text-brand-light-blue transition-all duration-300 relative group"
             >
               Prečo si vybrať nás
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-light-blue group-hover:w-full transition-all duration-300"></span>
             </a>
             <a 
-              href="#kontakt" 
+              href="/#kontakt" 
               className="text-sm lg:text-base text-white hover:text-brand-light-blue transition-all duration-300 relative group"
             >
               Kontaktujte nás
@@ -108,21 +108,21 @@ export default function Header() {
           <div className="border-t border-brand-light-blue/20 py-4">
             <div className="flex flex-col gap-4">
               <a 
-                href="#sluzby" 
+                href="/#sluzby" 
                 className="text-base text-white hover:text-brand-light-blue transition-all duration-300 py-2 hover:pl-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Naše služby
               </a>
               <a 
-                href="#vyhody" 
+                href="/#vyhody" 
                 className="text-base text-white hover:text-brand-light-blue transition-all duration-300 py-2 hover:pl-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Prečo si vybrať nás
               </a>
               <a 
-                href="#kontakt" 
+                href="/#kontakt" 
                 className="text-base text-white hover:text-brand-light-blue transition-all duration-300 py-2 hover:pl-2"
                 onClick={() => setIsMenuOpen(false)}
               >
