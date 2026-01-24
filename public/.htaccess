@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Exclude PHP files and other existing files from 404 redirect
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/contact\.php$ [NC]
+
+# Serve custom 404 page
+RewriteRule ^.*$ /404.html [L]
