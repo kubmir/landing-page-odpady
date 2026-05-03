@@ -1,45 +1,86 @@
 <?php
 /**
  * Simple .env file loader for PHP
- * Reads .env file and makes variables available via getenv() and $_ENV
+ * Reads .env file and sets $_ENV and $_SERVER (and putenv() when the host allows it).
+ *
+ * Values from the file always win for keys defined in the file. Hosting stacks often
+ * predefine SMTP_* (sometimes empty) in $_SERVER/$_ENV; skipping those would leave
+ * SMTP_PASS empty and break PHPMailer authentication.
  */
+/**
+ * Decodes double-quoted .env values (\\, \", \n, \r, \t, \$).
+ */
+function decodeEnvDoubleQuoted(string $inner): string {
+    return preg_replace_callback('/\\\\(\\\\|"|n|r|t|\$)/', static function (array $m): string {
+        switch ($m[1]) {
+            case 'n':
+                return "\n";
+            case 'r':
+                return "\r";
+            case 't':
+                return "\t";
+            default:
+                return $m[1];
+        }
+    }, $inner);
+}
+
 function loadEnv($envPath) {
     if (!file_exists($envPath)) {
         return false;
     }
-    
-    $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    $raw = file_get_contents($envPath);
+    if ($raw === false) {
+        return false;
+    }
+    // Strip UTF-8 BOM so the first key is not "\xEF\xBB\xBFSMTP_PASS"
+    if (strncmp($raw, "\xEF\xBB\xBF", 3) === 0) {
+        $raw = substr($raw, 3);
+    }
+
+    $lines = preg_split("/\r\n|\n|\r/", $raw);
     foreach ($lines as $line) {
-        // Skip comments
-        if (strpos(trim($line), '#') === 0) {
+        $line = trim($line);
+        if ($line === '') {
             continue;
         }
-        
-        // Parse KEY=VALUE
-        if (strpos($line, '=') !== false) {
-            list($key, $value) = explode('=', $line, 2);
-            $key = trim($key);
-            $value = trim($value);
-            
-            // Remove quotes if present
-            if ((substr($value, 0, 1) === '"' && substr($value, -1) === '"') ||
-                (substr($value, 0, 1) === "'" && substr($value, -1) === "'")) {
+        // Skip full-line comments
+        if ($line[0] === '#') {
+            continue;
+        }
+
+        if (strpos($line, '=') === false) {
+            continue;
+        }
+
+        list($key, $value) = explode('=', $line, 2);
+        $key = trim($key, " \t\x0B\x0C");
+        if ($key === '') {
+            continue;
+        }
+
+        $value = rtrim($value, "\r\n");
+        $value = trim($value);
+        if ($value !== '' && strlen($value) >= 2) {
+            $q0 = $value[0];
+            $q1 = substr($value, -1);
+            if ($q0 === '"' && $q1 === '"') {
+                $value = decodeEnvDoubleQuoted(substr($value, 1, -1));
+            } elseif ($q0 === "'" && $q1 === "'") {
                 $value = substr($value, 1, -1);
             }
-            
-            // Set environment variable
-            if (!array_key_exists($key, $_SERVER) && !array_key_exists($key, $_ENV)) {
-                putenv("$key=$value");
-                $_ENV[$key] = $value;
-                $_SERVER[$key] = $value;
-            }
+        }
+
+        $_ENV[$key] = $value;
+        $_SERVER[$key] = $value;
+        if (function_exists('putenv')) {
+            putenv($key . '=' . $value);
         }
     }
-    
+
     return true;
 }
 
-// Load .env file from the same directory as this script
 $envFile = __DIR__ . '/.env';
 loadEnv($envFile);
-?>

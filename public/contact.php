@@ -6,15 +6,37 @@ header('Access-Control-Allow-Headers: Content-Type');
 
 require_once __DIR__ . '/load-env.php';
 
+/** Prefer $_ENV (set by load-env.php); getenv() can miss putenv() under some PHP-FPM setups. */
+function contactEnv(string $key, string $default = ''): string {
+    if (array_key_exists($key, $_ENV)) {
+        return (string) $_ENV[$key];
+    }
+    $v = getenv($key);
+    return $v !== false ? (string) $v : $default;
+}
+
 define('PHPMailer_PATH', __DIR__ . '/PHPMailer/src/');
 
-define('SMTP_HOST', getenv('SMTP_HOST') ?: 'mail.webhouse.sk');
-define('SMTP_PORT', (int) (getenv('SMTP_PORT') ?: 587));
-define('SMTP_USER', getenv('SMTP_USER') ?: 'info@odpady24.sk');
-define('SMTP_PASS', getenv('SMTP_PASS') ?: '');
-define('SMTP_FROM_EMAIL', getenv('SMTP_FROM_EMAIL') ?: 'info@odpady24.sk');
-define('SMTP_FROM_NAME', getenv('SMTP_FROM_NAME') ?: 'ODPADY24.sk');
-define('EMAIL_TO', getenv('EMAIL_TO') ?: '');
+define('SMTP_HOST', contactEnv('SMTP_HOST', 'mail.webhouse.sk'));
+define('SMTP_PORT', (int) contactEnv('SMTP_PORT', '587'));
+define('SMTP_USER', contactEnv('SMTP_USER', 'info@odpady24.sk'));
+define('SMTP_PASS', contactEnv('SMTP_PASS', ''));
+define('SMTP_FROM_EMAIL', contactEnv('SMTP_FROM_EMAIL', 'info@odpady24.sk'));
+define('SMTP_FROM_NAME', contactEnv('SMTP_FROM_NAME', 'ODPADY24.sk'));
+define('EMAIL_TO', contactEnv('EMAIL_TO', ''));
+/**
+ * tls = predvolené STARTTLS na 587 (Thunderbird/Outlook na WebHouse); AUTH často zlyhá bez TLS aj pri správnom hesle.
+ * webhouse = SMTPSecure false + SMTPAutoTLS false ako v starom PHP príklade na helpdesku (len ak viete, že to váš server vyžaduje).
+ * ssl | smtps = port 465; none = bez šifrovania
+ * @see https://helpdesk.webhouse.sk/116974-PHP-trieda-PHPMailer-na-odosielanie-e-mailov-s-SMTP-autorizáciou
+ */
+define('SMTP_SECURE', strtolower(trim(contactEnv('SMTP_SECURE', 'tls'))));
+define('SMTP_HELO', trim(contactEnv('SMTP_HELO', '')));
+define('SMTP_DEBUG', (int) contactEnv('SMTP_DEBUG', '0'));
+/** auto | login | plain — predvolené login (auto môže zvoliť CRAM-MD5, ktorý na niektorých serveroch zlyhá) */
+define('SMTP_AUTH', strtolower(trim(contactEnv('SMTP_AUTH', 'login'))));
+/** Odosielateľ = SMTP_USER; nastavte SMTP_USE_USER_AS_FROM=0 ak chcete výhradne SMTP_FROM_EMAIL */
+define('SMTP_USE_USER_AS_FROM', contactEnv('SMTP_USE_USER_AS_FROM', '1') !== '0');
 
 if (!file_exists(PHPMailer_PATH . 'PHPMailer.php')) {
     http_response_code(500);
@@ -96,8 +118,18 @@ try {
         }
     }
 
-    $to = EMAIL_TO;
+    $to = EMAIL_TO !== '' ? EMAIL_TO : SMTP_USER;
     $subject = 'Nová správa z kontaktného formulára - ODPADY24.sk';
+
+    if (SMTP_PASS === '') {
+        ob_clean();
+        http_response_code(500);
+        echo json_encode([
+            'error' => 'SMTP nie je nakonfigurované',
+            'hint' => 'V .env musí byť nastavené SMTP_PASS (heslo poštovej schránky, nie alias bez schránky).',
+        ]);
+        exit;
+    }
 
     // Build email body
     $body = "Meno: $name\n";
@@ -115,14 +147,52 @@ try {
         $mail->isSMTP();
         $mail->Host = SMTP_HOST;
         $mail->SMTPAuth = true;
+        $auth = SMTP_AUTH;
+        if ($auth === 'plain') {
+            $mail->AuthType = 'PLAIN';
+        } elseif ($auth === 'login') {
+            $mail->AuthType = 'LOGIN';
+        } else {
+            $mail->AuthType = '';
+        }
         $mail->Username = SMTP_USER;
         $mail->Password = SMTP_PASS;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->SMTPAutoTLS = false;
         $mail->Port = SMTP_PORT;
 
-        // Recipients
-        $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
+        $sec = SMTP_SECURE;
+        if ($sec === 'ssl' || $sec === 'smtps') {
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        } elseif ($sec === 'tls' || $sec === 'starttls') {
+            // Alternatíva podľa návodov pre Outlook/Thunderbird (STARTTLS na 587)
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->SMTPAutoTLS = true;
+        } elseif ($sec === 'none' || $sec === 'off' || $sec === 'false') {
+            $mail->SMTPSecure = false;
+            $mail->SMTPAutoTLS = false;
+        } else {
+            // webhouse (predvolené) — zhoda s oficiálnym príkladom WebHouse v dokumentácii PHPMailer
+            $mail->SMTPSecure = false;
+            $mail->SMTPAutoTLS = false;
+        }
+
+        $helo = SMTP_HELO;
+        if ($helo === '' && preg_match('/@([^@]+)$/', SMTP_USER, $mh)) {
+            $helo = $mh[1];
+        }
+        if ($helo !== '') {
+            $mail->Helo = $helo;
+        }
+
+        if (SMTP_DEBUG > 0) {
+            $mail->SMTPDebug = min(3, SMTP_DEBUG);
+            $mail->Debugoutput = static function ($str, $level) {
+                error_log('[odpady24 contact SMTP] ' . trim($str));
+            };
+        }
+
+        // Recipients (niektoré SMTP vyžadujú zhodu From s prihláseným účtom)
+        $fromAddr = SMTP_USE_USER_AS_FROM ? SMTP_USER : SMTP_FROM_EMAIL;
+        $mail->setFrom($fromAddr, SMTP_FROM_NAME);
         $mail->addAddress($to);
         $mail->addReplyTo($email, $name);
 
@@ -139,10 +209,19 @@ try {
 
     } catch (Exception $e) {
         http_response_code(500);
-        echo json_encode([
+        $info = $mail->ErrorInfo;
+        $payload = [
             'error' => 'Failed to send email',
-            'message' => $mail->ErrorInfo
-        ]);
+            'message' => $info,
+        ];
+        if (stripos($info, 'authenticate') !== false) {
+            $payload['hint'] = 'Overte schránku a heslo (nie alias). Skúste SMTP_AUTH=plain alebo SMTP_USE_USER_AS_FROM=1. Ak server vyžaduje TLS pred AUTH, nastavte SMTP_SECURE=tls. Heslo so špeciálnymi znakmi dajte do úvodzoviek v .env. SMTP_DEBUG=2 → error log.';
+        }
+        if (stripos($info, 'STARTTLS') !== false || stripos($info, 'Must issue') !== false) {
+            $prev = $payload['hint'] ?? '';
+            $payload['hint'] = trim($prev . ' Skúste SMTP_SECURE=tls (STARTTLS na porte 587).');
+        }
+        echo json_encode($payload);
     }
 
 } catch (Exception $e) {

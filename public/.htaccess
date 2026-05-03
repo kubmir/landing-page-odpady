@@ -1,5 +1,10 @@
 RewriteEngine On
 
+# Block HTTP download of .env if it sits next to PHP (Apache 2.4+)
+<Files ".env">
+  Require all denied
+</Files>
+
 # Cache Control Headers for better performance
 # Images - cache for 1 year
 <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico|avif)$">
