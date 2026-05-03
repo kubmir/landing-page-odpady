@@ -1,28 +1,31 @@
 'use client'
 
 import Script from 'next/script'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getConsentStatus, ConsentStatus } from './CookieConsent'
 
 interface GoogleAnalyticsProps {
   measurementId: string
+  adsMeasurementId?: string
 }
 
-export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
-  const [consentStatus, setConsentStatus] = useState<ConsentStatus>('pending')
+function isConfiguredAdsId(id?: string): boolean {
+  return Boolean(id && id.startsWith('AW-') && id !== 'AW-XXXXXXXXXX')
+}
 
+export default function GoogleAnalytics({
+  measurementId,
+  adsMeasurementId,
+}: GoogleAnalyticsProps) {
   useEffect(() => {
     // Check initial consent status and update consent mode
     const consent = getConsentStatus()
-    setConsentStatus(consent)
-    
     if (consent !== 'pending') {
       updateConsentMode(consent === 'accepted')
     }
 
     // Listen for consent changes
     const handleConsentChange = (event: CustomEvent<ConsentStatus>) => {
-      setConsentStatus(event.detail)
       updateConsentMode(event.detail === 'accepted')
     }
 
@@ -58,16 +61,6 @@ export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps)
         document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${window.location.hostname}`
       }
     }
-  }
-
-  // Get initial consent for the default consent mode
-  const getInitialConsentValue = () => {
-    // Check if we have stored consent
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('odpady24_cookie_consent')
-      if (stored === 'accepted') return 'granted'
-    }
-    return 'denied'
   }
 
   return (
@@ -124,6 +117,11 @@ export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps)
             page_path: window.location.pathname,
             anonymize_ip: true
           });
+          ${
+            isConfiguredAdsId(adsMeasurementId)
+              ? `gtag('config', '${adsMeasurementId}');`
+              : ''
+          }
         `}
       </Script>
     </>
