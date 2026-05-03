@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import TrackedTelLink from './TrackedTelLink'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -54,38 +55,38 @@ export default function Header() {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-light-blue group-hover:w-full transition-all duration-300"></span>
             </a>
             <div className="flex items-center gap-2 lg:gap-3 pl-4 border-l border-brand-light-blue/20">
-              <a 
-                href="tel:0903596876" 
+              <TrackedTelLink
+                href="tel:0903596876"
                 className="text-xs lg:text-sm text-brand-light-blue font-semibold hover:text-white whitespace-nowrap px-3 py-1.5 rounded-lg border border-brand-light-blue/50 hover:bg-brand-light-blue/10 transition-all duration-300"
                 title="Stredné Slovensko"
               >
                 0903 596 876
-              </a>
-              <a 
-                href="tel:0948850491" 
+              </TrackedTelLink>
+              <TrackedTelLink
+                href="tel:0948850491"
                 className="text-xs lg:text-sm text-brand-light-blue font-semibold hover:text-white whitespace-nowrap px-3 py-1.5 rounded-lg border border-brand-light-blue/50 hover:bg-brand-light-blue/10 transition-all duration-300"
                 title="Západné Slovensko"
               >
                 0948 850 491
-              </a>
+              </TrackedTelLink>
             </div>
           </div>
           <div className="md:hidden flex items-center gap-2">
             <div className="flex flex-col items-end gap-0.5">
-              <a 
-                href="tel:0903596876" 
+              <TrackedTelLink
+                href="tel:0903596876"
                 className="text-xs text-brand-light-blue font-semibold hover:text-white transition-colors duration-300"
                 title="Stredné Slovensko"
               >
                 0903 596 876
-              </a>
-              <a 
-                href="tel:0948850491" 
+              </TrackedTelLink>
+              <TrackedTelLink
+                href="tel:0948850491"
                 className="text-xs text-brand-light-blue font-semibold hover:text-white transition-colors duration-300"
                 title="Západné Slovensko"
               >
                 0948 850 491
-              </a>
+              </TrackedTelLink>
             </div>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -129,20 +130,20 @@ export default function Header() {
                 Kontaktujte nás
               </a>
               <div className="pt-2 border-t border-brand-light-blue/20 flex flex-col gap-2">
-                <a 
-                  href="tel:0903596876" 
+                <TrackedTelLink
+                  href="tel:0903596876"
                   className="text-base text-brand-light-blue font-semibold hover:text-white transition-colors duration-300 py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   📞 Stredné Slovensko: 0903 596 876
-                </a>
-                <a 
-                  href="tel:0948850491" 
+                </TrackedTelLink>
+                <TrackedTelLink
+                  href="tel:0948850491"
                   className="text-base text-brand-light-blue font-semibold hover:text-white transition-colors duration-300 py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   📞 Západné Slovensko: 0948 850 491
-                </a>
+                </TrackedTelLink>
               </div>
             </div>
           </div>

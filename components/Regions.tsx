@@ -1,5 +1,6 @@
 import React from 'react'
 import ScrollReveal from './ScrollReveal'
+import TrackedTelLink from './TrackedTelLink'
 
 export default function Regions() {
   const regions = [
@@ -33,13 +34,13 @@ export default function Regions() {
                 <p className="text-base sm:text-lg md:text-xl text-gray-700 font-medium leading-relaxed group-hover:text-gray-800 transition-colors duration-300 mb-4 sm:mb-5">
                   {region.areas}
                 </p>
-                <a 
+                <TrackedTelLink
                   href={`tel:${region.phone.replace(/\s/g, '')}`}
                   className="inline-flex items-center gap-2 text-lg sm:text-xl md:text-2xl font-bold text-brand-light-blue hover:text-brand-orange transition-all duration-300 group-hover:scale-110"
                 >
                   <span className="text-2xl">📞</span>
                   <span>{region.phone}</span>
-                </a>
+                </TrackedTelLink>
               </div>
             </ScrollReveal>
           ))}

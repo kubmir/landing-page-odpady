@@ -3,7 +3,9 @@
 import React, { useState, useRef } from 'react'
 import Button from './Button'
 import ScrollReveal from './ScrollReveal'
-import Link from 'next/link';
+import TrackedTelLink from './TrackedTelLink'
+import Link from 'next/link'
+import { sendGoogleAdsContactFormConversion } from '@/lib/googleAdsConversion'
 
 export default function Contact() {
   const [formStartTime] = useState(Date.now())
@@ -53,6 +55,7 @@ export default function Contact() {
       const data = await response.json()
 
       if (response.ok && data.success) {
+        sendGoogleAdsContactFormConversion()
         setSubmitStatus('success')
         form.reset()
         // Reset form start time for potential resubmission
@@ -87,18 +90,18 @@ export default function Contact() {
               <p className="text-base sm:text-lg md:text-xl mb-4 leading-relaxed">
                 Máte problém s odtokom? Zavolajte nám alebo vyplňte online formulár – sme pripravení pomôcť!
               </p>
-              <a 
-                href="tel:0903596876" 
+              <TrackedTelLink
+                href="tel:0903596876"
                 className="text-xl sm:text-2xl font-bold hover:text-brand-light-blue inline-block mb-3 sm:mb-4 min-h-[48px] flex items-center justify-center transition-all duration-300 hover:scale-110"
               >
                 📞 0903 596 876
-              </a>
-              <a 
-                href="tel:0948850491" 
+              </TrackedTelLink>
+              <TrackedTelLink
+                href="tel:0948850491"
                 className="text-xl sm:text-2xl font-bold hover:text-brand-light-blue inline-block mb-3 sm:mb-4 min-h-[48px] flex items-center justify-center transition-all duration-300 hover:scale-110"
               >
                 📞 0948 850 491
-              </a>
+              </TrackedTelLink>
               <p className="text-base sm:text-lg">Volajte nonstop</p>
             </div>
           </ScrollReveal>
